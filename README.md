@@ -14,6 +14,7 @@ Os roteadores R4 e R5 estão em outra rede fechada e apenas R4 pode acessar a re
 
 A seguir há um resumo da configuração efetuada em cada interface utilizada dos roteadores.
 
+
 ## R1
 
 ### fastEthernet 0/0:
@@ -25,6 +26,7 @@ A seguir há um resumo da configuração efetuada em cada interface utilizada do
 **Subrede:** 10.0.1.64/26<br>
 **IP:** 10.0.1.65<br>
 **Máscara:** 255.255.255.192<br>
+
 
 ## R2
 
@@ -43,6 +45,7 @@ A seguir há um resumo da configuração efetuada em cada interface utilizada do
 **IP:** 10.0.3.1<br>
 **Máscara:** 255.255.255.252<br>
 
+
 ## R3
 
 ### fastEthernet 0/0:
@@ -54,6 +57,7 @@ A seguir há um resumo da configuração efetuada em cada interface utilizada do
 **Subrede:** 10.0.1.64/26<br>
 **IP:** 10.0.1.66<br>
 **Máscara:** 255.255.255.192<br>
+
 
 ## R4
 
@@ -67,12 +71,14 @@ A seguir há um resumo da configuração efetuada em cada interface utilizada do
 **IP:** 10.0.3.6<br>
 **Máscara:** 255.255.255.252<br>
 
+
 ## R5
 
 ### fastEthernet 0/0:
 **Subrede:** 10.0.2.0/24<br>
 **IP:** 10.0.2.2<br>
 **Máscara:** 255.255.255.0<br>
+
 
 ## R6 (Mikrotik)
 
