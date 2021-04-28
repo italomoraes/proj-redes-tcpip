@@ -1,0 +1,89 @@
+#R1
+configure terminal
+interface fastEthernet 0/0
+ip address 10.0.1.1 255.255.255.192
+no shutdown
+<ctrl+z>
+write
+configure terminal
+interface fastEthernet 1/0
+ip address 10.0.1.65 255.255.255.192
+no shutdown
+<ctrl+z>
+configure terminal
+ip routing
+ip route 10.0.1.128 255.255.255.192 10.0.1.66
+ip route 10.0.1.128 255.255.255.192 10.0.1.2
+end
+write
+copy running-config startup-config
+
+#R2
+configure terminal
+interface fastEthernet 0/0
+ip address 10.0.1.2 255.255.255.192
+no shutdown
+<ctrl+z>
+configure terminal
+interface fastEthernet 1/0
+ip address 10.0.1.129 255.255.255.192
+no shutdown
+<ctrl+z>
+configure terminal
+interface interface gigabitEthernet 2/0
+ip address 10.0.3.1 255.255.255.0
+no shutdown
+<ctrl+z>
+configure terminal
+ip routing
+ip route 10.0.1.64 255.255.255.192 10.0.1.130
+ip route 10.0.1.64 255.255.255.192 10.0.1.1
+end
+write
+copy running-config startup-config
+
+#R3
+configure terminal
+interface fastEthernet 0/0
+ip address 10.0.1.130 255.255.255.192
+no shutdown
+<ctrl+z>
+configure terminal
+interface fastEthernet 1/0
+ip address 10.0.1.66 255.255.255.192
+no shutdown
+<ctrl+z>
+configure terminal
+ip routing
+ip route 10.0.1.0 255.255.255.252 10.0.1.65
+ip route 10.0.1.0 255.255.255.252 10.0.1.129
+end
+write
+copy running-config startup-config
+
+#R4
+configure t
+interface f0/0
+ip address 10.0.2.1 255.255.255.0
+no shutdown
+exit
+interface g2/0
+ip address 10.0.3.6 255.255.255.252
+no shutdown
+exit
+exit
+write
+copy running-config startup-config
+
+#R5
+configure t
+interface f0/0
+ip address 10.0.2.2 255.255.255.0
+no shutdown
+<ctrl+z>
+write
+copy running-config startup-config
+
+#R6 (Mikrotik)
+ip address add address=10.0.3.2/30 interface=ether1
+ip address add address=10.0.3.5/30 interface=ether2
