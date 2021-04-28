@@ -17,71 +17,71 @@ A seguir há um resumo da configuração efetuada em cada interface utilizada do
 ## R1
 
 ### fastEthernet 0/0:
-**Subrede:** 10.0.1.0/26
-**IP:** 10.0.1.1
-**Máscara:** 255.255.255.192
+**Subrede:** 10.0.1.0/26<br>
+**IP:** 10.0.1.1<br>
+**Máscara:** 255.255.255.192<br>
 
 ### fastEthernet 1/0:
-**Subrede:** 10.0.1.64/26
-**IP:** 10.0.1.65
-**Máscara:** 255.255.255.192
+**Subrede:** 10.0.1.64/26<br>
+**IP:** 10.0.1.65<br>
+**Máscara:** 255.255.255.192<br>
 
 ## R2
 
 ### fastEthernet 0/0:
-**Subrede:** 10.0.1.0/26
-**IP:** 10.0.1.2
-**Máscara:** 255.255.255.192
+**Subrede:** 10.0.1.0/26<br>
+**IP:** 10.0.1.2<br>
+**Máscara:** 255.255.255.192<br>
 
 ### fastEthernet 1/0:
-**Subrede:** 10.0.1.128/26
-**IP:** 10.0.1.129
-**Máscara:** 255.255.255.192
+**Subrede:** 10.0.1.128/26<br>
+**IP:** 10.0.1.129<br>
+**Máscara:** 255.255.255.192<br>
 
 ### gigabitEthernet 2/0:
-**Subrede:** 10.0.3.0/30
-**IP:** 10.0.3.1
-**Máscara:** 255.255.255.252
+**Subrede:** 10.0.3.0/30<br>
+**IP:** 10.0.3.1<br>
+**Máscara:** 255.255.255.252<br>
 
 ## R3
 
 ### fastEthernet 0/0:
-**Subrede:** 10.0.1.128/26
-**IP:** 10.0.1.130
-**Máscara:** 255.255.255.192
+**Subrede:** 10.0.1.128/26<br>
+**IP:** 10.0.1.130<br>
+**Máscara:** 255.255.255.192<br>
 
 ### fastEthernet 1/0:
-**Subrede:** 10.0.1.64/26
-**IP:** 10.0.1.66
-**Máscara:** 255.255.255.192
+**Subrede:** 10.0.1.64/26<br>
+**IP:** 10.0.1.66<br>
+**Máscara:** 255.255.255.192<br>
 
 ## R4
 
 ### fastEthernet 0/0:
-**Subrede:** 10.0.2.0/24
-**IP:** 10.0.2.1
-**Máscara:** 255.255.255.0
+**Subrede:** 10.0.2.0/24<br>
+**IP:** 10.0.2.1<br>
+**Máscara:** 255.255.255.0<br>
 
 ### gigabitEthernet 2/0:
-**Subrede:** 10.0.3.4/30
-**IP:** 10.0.3.6
-**Máscara:** 255.255.255.252
+**Subrede:** 10.0.3.4/30<br>
+**IP:** 10.0.3.6<br>
+**Máscara:** 255.255.255.252<br>
 
 ## R5
 
 ### fastEthernet 0/0:
-**Subrede:** 10.0.2.0/24
-**IP:** 10.0.2.2
-**Máscara:** 255.255.255.0
+**Subrede:** 10.0.2.0/24<br>
+**IP:** 10.0.2.2<br>
+**Máscara:** 255.255.255.0<br>
 
 ## R6 (Mikrotik)
 
 ### ether1
-**Subrede:** 10.0.3.0/30
-**IP:** 10.0.3.2
-**Máscara:** 255.255.255.252
+**Subrede:** 10.0.3.0/30<br>
+**IP:** 10.0.3.2<br>
+**Máscara:** 255.255.255.252<br>
 
 ### ether2
-**Subrede:** 10.0.3.4/30
-**IP:** 10.0.3.5
-**Máscara:** 255.255.255.252
+**Subrede:** 10.0.3.4/30<br>
+**IP:** 10.0.3.5<br>
+**Máscara:** 255.255.255.252<br>
