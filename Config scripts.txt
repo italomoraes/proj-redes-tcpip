@@ -1,3 +1,7 @@
+=======================================================
+PARTE 1
+=======================================================
+
 #R1
 configure terminal
 interface fastEthernet 0/0
@@ -31,7 +35,7 @@ no shutdown
 <ctrl+z>
 configure terminal
 interface interface gigabitEthernet 2/0
-ip address 10.0.3.1 255.255.255.0
+ip address 10.0.3.1 255.255.255.252
 no shutdown
 <ctrl+z>
 configure terminal
@@ -87,3 +91,70 @@ copy running-config startup-config
 #R6 (Mikrotik)
 ip address add address=10.0.3.2/30 interface=ether1
 ip address add address=10.0.3.5/30 interface=ether2
+
+
+=======================================================
+PARTE 2
+=======================================================
+
+#R2
+configure t
+int g2/0
+no ip address 10.0.3.1 255.255.255.252
+ipv6 enable
+ipv6 address 2001:cafe:db3::1/126
+end
+write
+copy running-config startup-config
+configure t  
+int Tunnel10
+ipv6 address 2001:cafe:db3::9/126
+tunnel source f1/0
+tunnel destination 10.0.2.1
+tunnel mode ipv6ip
+exit
+int Tunnel11
+ipv6 address 2001:cafe:db3::D/126
+tunnel source f0/0
+tunnel destination 10.0.2.1
+tunnel mode ipv6ip
+end
+write
+copy running-config startup-config
+
+#R6
+ip address remove 0
+ip address remove 1
+system package print
+system package enable 2
+system reboot
+ipv6 address add address=2001:cafe:db3::2/126 interface=ether1
+ipv6 address add address=2001:cafe:db3::5/126 interface=ether2
+
+#R4
+configure t
+int g2/0
+no ip address 10.0.3.6 255.255.255.252
+ipv6 enable
+ipv6 address 2001:cafe:db3::6/126
+end
+write
+copy running-config startup-config
+configure t
+int Tunnel12
+ipv6 address 2001:cafe:db3::A/126
+tunnel source f0/0
+tunnel destination 10.0.1.2
+tunnel mode ipv6ip
+exit
+int Tunnel13
+ipv6 address 2001:cafe:db3::E/126
+tunnel source f0/0
+tunnel destination 10.0.1.129
+tunnel mode ipv6ip
+end
+write
+copy running-config startup-config
+
+
+
