@@ -1,0 +1,3 @@
+https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/interface/configuration/xe-3s/ir-xe-3s-book/ip6-man-tunls-xe.pdf
+https://www.cisco.com/c/pt_br/support/docs/ip/ip-version-6/25156-ipv6tunnel.html#t2
+https://wiki.mikrotik.com/wiki/Manual:IPv6/Address#Examples
