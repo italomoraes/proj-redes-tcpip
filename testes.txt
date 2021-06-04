@@ -1,0 +1,12 @@
+##Teste da VPN:
+
+#R2
+traceroute 2002::2 // observar pacotes capturados pelo WireShark
+
+
+##Teste do OSPF:
+
+#R2
+ping 2001:CAFE:DB3::6 (R4)
+traceroute 10.0.1.65
+
