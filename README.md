@@ -2,7 +2,8 @@
 Projeto da disciplina de Arquitetura de Redes TCP-IP
 
 A imagem abaixo exibe os IPs de interfaces configuradas e conectadas.
-![alt text](<https://github.com/italomoraes/proj-redes-tcpip/blob/main/Resources/Topologia-parte2.png>)
+![alt text](<https://github.com/italomoraes/proj-redes-tcpip/blob/part2/Resources/Topologia-parte2.png>)
+
 
 Dentro do arquivo "Config Scripts.txt" - na raiz deste projeto - você encontrará as linhas utilizadas para efetuar as configurações em cada um dos roteadores.
 
