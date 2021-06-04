@@ -174,7 +174,7 @@
                 "drawing_id": "8ece36a7-802e-45d6-b097-61ff0482d444",
                 "locked": false,
                 "rotation": 0,
-                "svg": "<svg height=\"20\" width=\"28\"><text fill=\"#000000\" fill-opacity=\"1.0\" font-family=\"TypeWriter\" font-size=\"10.0\" font-weight=\"bold\">AS3</text></svg>",
+                "svg": "<svg height=\"20\" width=\"28\"><text fill=\"#000000\" fill-opacity=\"1.0\" font-family=\"TypeWriter\" font-size=\"10.0\" font-weight=\"bold\">AS0</text></svg>",
                 "x": 73,
                 "y": -273,
                 "z": 2
@@ -503,7 +503,7 @@
                 "symbol": ":/symbols/router.svg",
                 "template_id": "d0e4b648-266f-4139-bd9a-eff3fc2ebff3",
                 "width": 66,
-                "x": -133,
+                "x": -134,
                 "y": -385,
                 "z": 1
             },

@@ -97,6 +97,18 @@ ip address add address=10.0.3.5/30 interface=ether2
 PARTE 2
 =======================================================
 
+#R1
+configure t
+no ip routing
+ip routing
+end
+configure t
+router ospf 1
+network 10.0.1.0 0.0.0.255 area 1
+end
+write
+copy running-config startup-config
+
 #R2
 configure t
 int g2/0
@@ -121,15 +133,66 @@ tunnel mode ipv6ip
 end
 write
 copy running-config startup-config
+configure t
+no ip routing
+ip routing
+end
+write
+copy running-config startup-config
+configure t
+router ospf 1
+network 10.0.1.0 0.0.0.255 area 1
+end
+ipv6 unicast-routing
+router ospfv3 1
+router-id 0.0.0.3
+exit
+int g2/0
+ospfv3 1 area 0 ipv6
+ip address 10.0.3.1 255.255.255.0
+ospfv3 1 area 1 ipv4
+end
+----------------- Configuração da VPN IPSec --------------------
+configure t
+crypto isakmp policy 10
+encryption 3des
+group 2
+authentication pre-share
+exit
+crypto isakmp key 0 ipsecvpn address ipv6 2001:CAFE:DB3::6/126
+crypto ipsec transform-set ipv6_tran esp-3des esp-sha-hmac 
+mode tunnel
+exit
+crypto ipsec profile ipv6_ipsec_pro
+set transform-set ipv6_tran
+exit
+crypto isakmp profile 3des
+self-identity address ipv6 
+match identity address ipv6 2001:CAFE:DB3::6/126
+keyring default 
+exit
+int tunnel 1
+ipv6 enable 
+ipv6 address 2002::1/64
+tunnel source 2001:CAFE:DB3::1
+tunnel destination 2001:CAFE:DB3::6
+tunnel mode ipsec ipv6
+tunnel protection ipsec profile ipv6_ipsec_pro
+exit
+write
+copy running-config startup-config
 
-#R6
-ip address remove 0
-ip address remove 1
-system package print
-system package enable 2
-system reboot
-ipv6 address add address=2001:cafe:db3::2/126 interface=ether1
-ipv6 address add address=2001:cafe:db3::5/126 interface=ether2
+#R3
+configure t
+no ip routing
+ip routing
+end
+configure t
+router ospf 1
+network 10.0.1.0 0.0.0.255 area 1
+end
+write
+copy running-config startup-config
 
 #R4
 configure t
@@ -153,8 +216,69 @@ tunnel source f0/0
 tunnel destination 10.0.1.129
 tunnel mode ipv6ip
 end
+configure t
+router ospf 1
+network 10.0.2.0 0.0.0.255 area 2
+exit
+ipv6 unicast-routing
+router ospfv3 1
+router-id 0.0.0.2
+exit
+int g2/0
+ospfv3 1 area 0 ipv6
+ip address 10.0.3.1 255.255.255.0
+ospfv3 1 area 2 ipv4
+exit
+end
+----------------- Configuração da VPN IPSec --------------------
+crypto isakmp policy 10
+encryption 3des 
+group 2
+authentication pre-share 
+exit
+crypto isakmp key 0 ipsecvpn address ipv6 2001:CAFE:DB3::1/126
+crypto ipsec transform-set ipv6_tran esp-3des esp-sha-hmac 
+mode tunnel
+exit
+crypto ipsec profile ipv6_ipsec_pro
+set transform-set ipv6_tran
+exit
+crypto isakmp profile 3des
+self-identity address ipv6
+match identity address ipv6 2001:CAFE:DB3::1/126
+keyring default 
+exit
+int tunnel 1
+ipv6 enable 
+ipv6 address 2002::2/64
+tunnel source 2001:CAFE:DB3::6
+tunnel destination 2001:CAFE:DB3::1
+tunnel mode ipsec ipv6
+tunnel protection ipsec profile ipv6_ipsec_pro
+end
 write
 copy running-config startup-config
+
+#R5
+configure t
+router ospf 1
+network 10.0.2.0 0.0.0.255 area 2
+end
+write
+copy running-config startup-config
+
+#R6
+ip address remove 0
+ip address remove 1
+system package print
+system package enable 2
+system reboot
+ipv6 address add address=2001:cafe:db3::2/126 interface=ether1
+ipv6 address add address=2001:cafe:db3::5/126 interface=ether2
+routing ospf-v3 interface add interface=ether1 area=backbone
+routing ospf-v3 interface add interface=ether2 area=backbone 
+routing ospf-v3 instance set router-id=0.0.0.1 default 
+
 
 
 

@@ -2,15 +2,17 @@
 Projeto da disciplina de Arquitetura de Redes TCP-IP
 
 A imagem abaixo exibe os IPs de interfaces configuradas e conectadas.
-![alt text](<https://github.com/italomoraes/proj-redes-tcpip/blob/main/Resources/Topologia.png>)
+![alt text](<https://github.com/italomoraes/proj-redes-tcpip/blob/main/Resources/Topologia-parte2.png>)
 
 Dentro do arquivo "Config Scripts.txt" - na raiz deste projeto - você encontrará as linhas utilizadas para efetuar as configurações em cada um dos roteadores.
 
-Os roteadores R1, R2 e R3 estão contidos em uma rede fechada e têm acesso às redes uns de outros, porém, o único roteador com acesso externo a essa rede é R2 e somente ele consegue se comunicar para fora da rede.
+Os roteadores R1, R2 e R3 estão contidos em uma rede fechada (Área 1) e têm acesso às redes uns de outros, porém, o único roteador com acesso externo a essa rede é R2 e somente ele consegue se comunicar para fora da rede.
 
-O Roteador R6 (MikroTik) faz parte de seu próprio sistema e tem máscara de forma que apenas ele e mais um dispositivo sejam conectados às suas subredes ("/30").
+O Roteador R6 (MikroTik) faz parte de uma rede baseada em IPv6 e de seu próprio sistema (Área 0 - Backbone). Ele tem máscara de forma que apenas ele e mais dois dispositivos sejam conectados às suas subredes ("/126").
 
-Os roteadores R4 e R5 estão em outra rede fechada e apenas R4 pode acessar a rede externa.
+Os roteadores R4 e R5 estão em outra rede fechada (Área 2) e apenas R4 pode acessar a rede externa.
+
+Existe um tunel protegido por IPSec com chave pré-compartilhada no backbone (Área 0: AS0) entre os roteadores R2 e R4. O túnel pode ser acessado navegando pelo IP 2002::2 em R2 ou pelo IP 2002::1 através do R4.
 
 A seguir há um resumo da configuração efetuada em cada interface utilizada dos roteadores.
 
@@ -41,9 +43,8 @@ A seguir há um resumo da configuração efetuada em cada interface utilizada do
 **Máscara:** 255.255.255.192<br>
 
 ### gigabitEthernet 2/0:
-**Subrede:** 10.0.3.0/30<br>
-**IP:** 10.0.3.1<br>
-**Máscara:** 255.255.255.252<br>
+**Subrede:** 2001:CAFE:DB3::/126<br>
+**IP:** 2001:CAFE:DB3::1<br>
 
 
 ## R3
@@ -67,9 +68,8 @@ A seguir há um resumo da configuração efetuada em cada interface utilizada do
 **Máscara:** 255.255.255.0<br>
 
 ### gigabitEthernet 2/0:
-**Subrede:** 10.0.3.4/30<br>
-**IP:** 10.0.3.6<br>
-**Máscara:** 255.255.255.252<br>
+**Subrede:** 2001:CAFE:DB3::4/126<br>
+**IP:** 2001:CAFE:DB3::6<br>
 
 
 ## R5
@@ -83,11 +83,9 @@ A seguir há um resumo da configuração efetuada em cada interface utilizada do
 ## R6 (Mikrotik)
 
 ### ether1
-**Subrede:** 10.0.3.0/30<br>
-**IP:** 10.0.3.2<br>
-**Máscara:** 255.255.255.252<br>
+**Subrede:** 2001:CAFE:DB3::/126<br>
+**IP:** 2001:CAFE:DB3::2<br>
 
 ### ether2
-**Subrede:** 10.0.3.4/30<br>
-**IP:** 10.0.3.5<br>
-**Máscara:** 255.255.255.252<br>
+**Subrede:** 2001:CAFE:DB3::4/126<br>
+**IP:** 2001:CAFE:DB3::5<br>
