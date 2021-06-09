@@ -1,0 +1,285 @@
+#R1
+!
+interface FastEthernet0/0
+ ip address 10.0.1.1 255.255.255.192
+ duplex full
+!
+interface FastEthernet1/0
+ ip address 10.0.1.65 255.255.255.192
+ speed auto
+ duplex auto
+!
+interface FastEthernet1/1
+ no ip address
+ shutdown
+ speed auto
+ duplex auto
+!
+interface GigabitEthernet2/0
+ no ip address
+ shutdown
+ negotiation auto
+!
+router ospf 1
+ network 10.0.1.0 0.0.0.255 area 1
+!
+---------------------------------------------------------------
+
+#R2
+!
+crypto isakmp policy 10
+ encr 3des
+ authentication pre-share
+ group 2
+crypto isakmp key ipsecvpn address ipv6 2001:CAFE:DB3::6/126
+crypto isakmp profile 3des
+   keyring default
+   match identity address ipv6 2001:CAFE:DB3::6/126 
+!
+!
+crypto ipsec transform-set ipv6_tran esp-3des esp-sha-hmac 
+ mode tunnel
+!
+!
+crypto ipsec profile ipv6_ipsec_pro
+ set transform-set ipv6_tran 
+!
+!
+!
+!
+!
+!
+interface Tunnel1
+ no ip address
+ ipv6 address 2002::1/64
+ ipv6 enable
+ tunnel source 2001:CAFE:DB3::1
+ tunnel mode ipsec ipv6
+ tunnel destination 2001:CAFE:DB3::6
+ tunnel protection ipsec profile ipv6_ipsec_pro
+!
+interface Tunnel10
+ no ip address
+ ipv6 address 2001:CAFE:DB3::6/126
+ ipv6 enable
+ tunnel source FastEthernet1/0
+ tunnel mode ipv6ip
+ tunnel destination 10.0.2.1
+!
+interface Tunnel11
+ no ip address
+ ipv6 address 2001:CAFE:DB3::D/126
+ tunnel source FastEthernet0/0
+ tunnel mode ipv6ip
+ tunnel destination 10.0.2.1
+!
+interface FastEthernet0/0
+ ip address 10.0.1.2 255.255.255.192
+ duplex full
+!
+interface FastEthernet1/0
+ ip address 10.0.1.129 255.255.255.192
+ speed auto
+ duplex auto
+!
+interface FastEthernet1/1
+ no ip address
+ shutdown
+ speed auto
+ duplex auto
+!
+interface GigabitEthernet2/0
+ ip address 10.0.3.1 255.255.255.0
+ negotiation auto
+ ipv6 address 2001:CAFE:DB3::1/126
+ ipv6 enable
+ ospfv3 1 ipv4 area 1
+ ospfv3 1 ipv6 area 0
+!
+router ospfv3 1
+ router-id 0.0.0.3
+ !        
+ address-family ipv4 unicast
+ exit-address-family
+ !
+ address-family ipv6 unicast
+ exit-address-family
+!
+router ospf 1
+ network 10.0.1.0 0.0.0.255 area 1
+!
+ip forward-protocol nd
+!
+!
+no ip http server
+no ip http secure-server
+!
+ipv6 route FC01::/64 2002::2
+!
+---------------------------------------------------------------
+
+#R3
+!
+interface FastEthernet0/0
+ ip address 10.0.1.130 255.255.255.192
+ duplex full
+!
+interface FastEthernet1/0
+ ip address 10.0.1.66 255.255.255.192
+ speed auto
+ duplex auto
+!
+interface FastEthernet1/1
+ no ip address
+ shutdown
+ speed auto
+ duplex auto
+!
+interface GigabitEthernet2/0
+ no ip address
+ shutdown
+ negotiation auto
+!         
+router ospf 1
+ network 10.0.1.0 0.0.0.255 area 1
+!
+---------------------------------------------------------------
+
+#R4
+!
+crypto isakmp policy 10
+ encr 3des
+ authentication pre-share
+ group 2
+crypto isakmp key ipsecvpn address ipv6 2001:CAFE:DB3::1/126
+crypto isakmp profile 3des
+   keyring default
+   match identity address ipv6 2001:CAFE:DB3::1/126 
+!
+!
+crypto ipsec transform-set ipv6_tran esp-3des esp-sha-hmac 
+ mode tunnel
+!
+!
+crypto ipsec profile ipv6_ipsec_pro
+ set transform-set ipv6_tran 
+!
+!
+!
+!
+!
+!
+interface Tunnel1
+ no ip address
+ ipv6 address 2002::2/64
+ ipv6 enable
+ tunnel source 2001:CAFE:DB3::6
+ tunnel mode ipsec ipv6
+ tunnel destination 2001:CAFE:DB3::1
+ tunnel protection ipsec profile ipv6_ipsec_pro
+!
+interface Tunnel12
+ no ip address
+ ipv6 address 2001:CAFE:DB3::A/126
+ tunnel source FastEthernet0/0
+ tunnel mode ipv6ip
+ tunnel destination 10.0.1.2
+!
+interface Tunnel13
+ no ip address
+ ipv6 address 2001:CAFE:DB3::E/126
+ tunnel source FastEthernet0/0
+ tunnel mode ipv6ip
+ tunnel destination 10.0.1.129
+!
+interface FastEthernet0/0
+ ip address 10.0.2.1 255.255.255.0
+ duplex full
+!         
+interface FastEthernet1/0
+ no ip address
+ shutdown
+ speed auto
+ duplex auto
+!
+interface FastEthernet1/1
+ no ip address
+ shutdown
+ speed auto
+ duplex auto
+!
+interface GigabitEthernet2/0
+ ip address 10.0.3.1 255.255.255.0
+ negotiation auto
+ ipv6 address 2001:CAFE:DB3::6/126
+ ipv6 enable
+ ospfv3 1 ipv4 area 2
+ ospfv3 1 ipv6 area 0
+!
+router ospfv3 1
+ router-id 0.0.0.2
+ !        
+ address-family ipv4 unicast
+ exit-address-family
+ !
+ address-family ipv6 unicast
+ exit-address-family
+!
+router ospf 1
+ network 10.0.2.0 0.0.0.255 area 2
+!
+ip forward-protocol nd
+!
+!
+no ip http server
+no ip http secure-server
+!
+ipv6 route FC00::/64 2002::1
+!
+---------------------------------------------------------------
+
+#R5
+!
+interface FastEthernet0/0
+ ip address 10.0.2.2 255.255.255.0
+ duplex full
+!
+interface FastEthernet1/0
+ no ip address
+ shutdown
+ speed auto
+ duplex auto
+!
+interface FastEthernet1/1
+ no ip address
+ shutdown
+ speed auto
+ duplex auto
+!
+interface GigabitEthernet2/0
+ no ip address
+ shutdown
+ negotiation auto
+!
+router ospf 1
+ network 10.0.2.0 0.0.0.255 area 2
+!
+---------------------------------------------------------------
+
+#R6
+/interface ethernet
+set [ find default-name=ether1 ] disable-running-check=no
+set [ find default-name=ether2 ] disable-running-check=no
+/interface wireless security-profiles
+set [ find default=yes ] supplicant-identity=MikroTik
+/routing ospf-v3 instance
+set [ find default=yes ] router-id=0.0.0.1
+/ip dhcp-client
+add disabled=no interface=ether1
+/ipv6 address
+add address=2001:cafe:db3::2/126 advertise=no interface=ether1
+add address=2001:cafe:db3::5/126 advertise=no interface=ether2
+/routing ospf-v3 interface
+add area=backbone interface=ether1
+add area=backbone interface=ether2
+---------------------------------------------------------------
