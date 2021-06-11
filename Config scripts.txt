@@ -119,17 +119,12 @@ end
 write
 copy running-config startup-config
 configure t  
-int Tunnel10
-ipv6 address 2001:cafe:db3::9/126
-tunnel source f1/0
-tunnel destination 10.0.2.1
-tunnel mode ipv6ip
+int tunnel 24
+tunnel source g2/0
+tunnel destination 2001:CAFE:DB3::6
+tunnel mode gre ipv6
+ip address 10.0.0.1 255.255.255.0
 exit
-int Tunnel11
-ipv6 address 2001:cafe:db3::D/126
-tunnel source f0/0
-tunnel destination 10.0.2.1
-tunnel mode ipv6ip
 end
 write
 copy running-config startup-config
@@ -142,6 +137,7 @@ copy running-config startup-config
 configure t
 router ospf 1
 network 10.0.1.0 0.0.0.255 area 1
+network 10.0.0.0 0.0.0.255 area 0
 end
 ipv6 unicast-routing
 router ospfv3 1
@@ -149,8 +145,6 @@ router-id 0.0.0.3
 exit
 int g2/0
 ospfv3 1 area 0 ipv6
-ip address 10.0.3.1 255.255.255.0
-ospfv3 1 area 1 ipv4
 end
 ----------------- Configuração da VPN IPSec --------------------
 configure t
@@ -204,21 +198,17 @@ end
 write
 copy running-config startup-config
 configure t
-int Tunnel12
-ipv6 address 2001:cafe:db3::A/126
-tunnel source f0/0
-tunnel destination 10.0.1.2
-tunnel mode ipv6ip
+int tunnel 42
+tunnel source g2/0
+tunnel destination 2001:CAFE:DB3::1
+tunnel mode gre ipv6
+ip address 10.0.0.2 255.255.255.0
 exit
-int Tunnel13
-ipv6 address 2001:cafe:db3::E/126
-tunnel source f0/0
-tunnel destination 10.0.1.129
-tunnel mode ipv6ip
 end
 configure t
 router ospf 1
 network 10.0.2.0 0.0.0.255 area 2
+network 10.0.0.0 0.0.0.255 area 0
 exit
 ipv6 unicast-routing
 router ospfv3 1
@@ -226,8 +216,6 @@ router-id 0.0.0.2
 exit
 int g2/0
 ospfv3 1 area 0 ipv6
-ip address 10.0.3.1 255.255.255.0
-ospfv3 1 area 2 ipv4
 exit
 end
 ----------------- Configuração da VPN IPSec --------------------
